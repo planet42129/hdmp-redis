@@ -91,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         //7.2将User对象转为Hash存储  -> HashMap
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
-//        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO);
+//        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO);  //这种方法不能把userDTO中的Long类型的id转为String，会报错
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
