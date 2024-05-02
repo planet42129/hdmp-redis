@@ -29,10 +29,24 @@ public class CacheClient {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 
+    /**
+     * 设置普通缓存数据
+     * @param key
+     * @param value
+     * @param time
+     * @param timeUnit
+     */
     public void set(String key, Object value, Long time, TimeUnit timeUnit) {
         stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(value), time, timeUnit);
     }
 
+    /**
+     * 设置逻辑过期类型的缓存数据
+     * @param key
+     * @param value
+     * @param time
+     * @param timeUnit
+     */
     public void setWithLogicalExpire(String key, Object value, Long time, TimeUnit timeUnit) {
         //设置逻辑过期
         RedisData redisData = new RedisData();

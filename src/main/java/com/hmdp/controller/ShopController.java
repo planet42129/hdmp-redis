@@ -64,7 +64,7 @@ public class ShopController {
 
     /**
      * 根据商铺类型分页查询商铺信息
-     * @param typeId 商铺类型
+     * @param typeId  商铺类型
      * @param current 页码
      * @return 商铺列表
      */
@@ -83,7 +83,7 @@ public class ShopController {
 
     /**
      * 根据商铺名称关键字分页查询商铺信息
-     * @param name 商铺名称关键字
+     * @param name    商铺名称关键字
      * @param current 页码
      * @return 商铺列表
      */

@@ -51,6 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //3、符合，生成验证码
         String code = RandomUtil.randomNumbers(6);
 
+        //todo:手机号和验证码作为一组数据存入redis
         //4、保存验证码到redis  //set key value ex 120
         stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY + phone, code, LOGIN_CODE_TTL, TimeUnit.MINUTES);
 
@@ -85,13 +86,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             user = createUserWithPhone(phone);
         }
 
-        //7、保存用户到redis
+        //7、保存用户信息到redis
         //7.1 随机生成token，作为登录令牌
         String token = UUID.randomUUID().toString(true);
 
         //7.2将User对象转为Hash存储  -> HashMap
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
 //        Map<String, Object> userMap = BeanUtil.beanToMap(userDTO);  //这种方法不能把userDTO中的Long类型的id转为String，会报错
+        //看测试类里边的testUserMapFieldIsString
         Map<String, Object> userMap = BeanUtil.beanToMap(userDTO, new HashMap<>(),
                 CopyOptions.create()
                         .setIgnoreNullValue(true)
